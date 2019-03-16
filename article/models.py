@@ -9,3 +9,4 @@ class Article(models.Model):
 
     class Meta:
         ordering = ('created',)
+        db_table = "article"
