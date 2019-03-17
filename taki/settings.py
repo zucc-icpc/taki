@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'article.apps.ArticleConfig',
     'honor.apps.HonorConfig',
     'solution.apps.SolutionConfig',
-    'user_profile.apps.UserProfileConfig',
+    'user.apps.UserProfileConfig',
     'codebase.apps.CodebaseConfig',
     'code_section.apps.CodeSectionConfig',
     'code_snippet.apps.CodeSnippetConfig',
@@ -128,6 +128,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (

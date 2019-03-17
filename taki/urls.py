@@ -16,15 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token
+from taki.views import api_root
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('article.urls')),
+    path('api/', include('article.urls')),
+    path('api/', include('user.urls')),
+    path('', api_root)
 ]
 
-# urlpatterns += [
-#     path('api-auth/', include('rest_framework.urls')),
-# ]
+urlpatterns += [
+    path('api-auth/', include('rest_framework.urls')),
+]
 
 urlpatterns += [
     path('api-token-auth/', obtain_jwt_token),
