@@ -8,5 +8,6 @@ def api_root(request, format=None):
     return Response({
         'article': reverse('article-list', request=request, format=format),
         'user': reverse('user-list', request=request, format=format),
+        'profile': reverse('profile-list', request=request, format=format),
         # 'snippets': reverse('snippet-list', request=request, format=format)
     })

@@ -5,23 +5,45 @@ from user.models import Profile
 
 
 class UserSerializer(serializers.ModelSerializer):
-    # snippets = serializers.PrimaryKeyRelatedField(many=True, queryset=Snippet.objects.all())
-    # snippets = serializers.HyperlinkedRelatedField(many=True, view_name='snippet-detail', read_only=True)
+    # profile = serializers.PrimaryKeyRelatedField(read_only=True)
     articles = serializers.PrimaryKeyRelatedField(many=True, queryset=Article.objects.all())
-    profile = serializers.PrimaryKeyRelatedField(read_only=True)
+    type = serializers.CharField(source='profile.type')
+    biography = serializers.CharField(source='profile.biography')
+    avatar = serializers.CharField(source='profile.avatar')
+    name = serializers.CharField(source='profile.name')
+    sid = serializers.CharField(source='profile.sid')
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'articles', 'profile')
+        fields = ('id', 'username', 'is_staff', 'articles', 'type', 'biography', 'avatar', 'name', 'sid')
+
+
+class UserRegisterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username', 'password')
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(source='pk', read_only=True)
+    user = serializers.IntegerField(source='pk', read_only=True)
     username = serializers.CharField(source='user.username')
 
     class Meta:
         model = Profile
         fields = (
-            'id', 'username', 'created_at', 'updated_at', 'type',
+            'user', 'username', 'created_at', 'updated_at', 'type',
             'biography', 'avatar', 'name', 'sid'
         )
+
+
+class ProfileUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = (
+            'type', 'biography', 'avatar', 'name', 'sid'
+        )
+
+    def validate_type(self, value):
+        if value not in ['普通用户', '队员', '教练', '退役队员']:
+            raise serializers.ValidationError("用户类型不正确")
+        return value
