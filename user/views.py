@@ -6,20 +6,28 @@ from django.contrib.auth.models import User
 from user.serializers import UserSerializer, UserRegisterSerializer, ProfileSerializer, ProfileUpdateSerializer
 from user.models import Profile
 from user.permissions import IsOwnerOrReadOnly
+from rest_framework import permissions
+
 
 class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = ()
+
+    def get_serializer_class(self, *args, **kwargs):
+        if self.request.method in ['POST']:
+            return UserRegisterSerializer
+        else:
+            return UserSerializer
 
     def create(self, request, *args, **kwargs):
         serializer = UserRegisterSerializer(data=request.data)
         if serializer.is_valid():
-            print(serializer.validated_data['username'], serializer.validated_data['password'])
             User.objects.create_user(
-                serializer.validated_data['username'],
-                serializer.validated_data['password'],
+                username=serializer.validated_data['username'],
+                password=serializer.validated_data['password'],
             )
-            return Response(serializer.validated_data['username'], status=status.HTTP_200_OK)
+            return Response(serializer.validated_data, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -36,7 +44,6 @@ class ProfileList(generics.ListAPIView):
 
 class ProfileDetail(generics.RetrieveUpdateAPIView):
     queryset = Profile.objects.all()
-    permission_classes = (IsOwnerOrReadOnly,)
     serializer_class = ProfileSerializer
 
     def get_serializer_class(self, *args, **kwargs):
