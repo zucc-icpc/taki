@@ -21,7 +21,7 @@ class UserSerializer(serializers.ModelSerializer):
 class UserRegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('username', 'password')
+        fields = ('username', 'password', 'email')
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -47,3 +47,11 @@ class ProfileUpdateSerializer(serializers.ModelSerializer):
         if value not in ['普通用户', '队员', '教练', '退役队员']:
             raise serializers.ValidationError("用户类型不正确")
         return value
+
+
+class ProfileAvatarSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = (
+            'avatar'
+        )

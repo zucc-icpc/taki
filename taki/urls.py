@@ -16,12 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token
-from taki.views import api_root
+from taki.views import CookieJSONWebToken, api_root
+from django.conf.urls.static import static
+from taki import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('article.urls')),
     path('api/', include('user.urls')),
+    path('api/', include('solution.urls')),
     path('', api_root)
 ]
 
@@ -30,6 +33,8 @@ urlpatterns += [
 ]
 
 urlpatterns += [
-    path('api-token-auth/', obtain_jwt_token),
-    path('api-token-verify/', verify_jwt_token)
+    path('api-token-auth/', CookieJSONWebToken.as_view()),
+    path('api-token-verify/',  verify_jwt_token)
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

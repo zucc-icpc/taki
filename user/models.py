@@ -10,7 +10,7 @@ class Profile(models.Model):
     updated_at = models.DateTimeField(auto_now = True)
     type = models.CharField(max_length=10, blank=False, default='普通用户')
     biography = models.CharField(max_length=5000, blank=True, default='')
-    avatar = models.CharField(max_length=300, blank=True, default='')
+    avatar = models.ImageField()
     name = models.CharField(max_length=10, blank=True, default='')
     sid = models.CharField(max_length=10, blank=True, default='')
 
