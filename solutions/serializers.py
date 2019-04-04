@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from solution.models import Solution
+from solutions.models import Solution
 
 
 class SolutionSerializer(serializers.ModelSerializer):

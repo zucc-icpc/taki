@@ -19,7 +19,7 @@ from user.permissions import CreateOnly
 class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = ()
+    permission_classes = (permissions.AllowAny,)
 
     def get_serializer_class(self, *args, **kwargs):
         if self.request.method in ['POST']:
@@ -37,7 +37,7 @@ class UserList(generics.ListCreateAPIView):
             )
             return Response(serializer.validated_data, status=status.HTTP_200_OK)
         else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": serializer.errors}, status=status.HTTP_200_OK)
 
 
 class UserDetail(generics.RetrieveAPIView):
@@ -64,7 +64,6 @@ class ProfileDetail(generics.RetrieveUpdateAPIView):
             return ProfileSerializer
 
     def get(self, request, *args, **kwargs):
-        print(request.user.id)
         return self.retrieve(request, *args, **kwargs)
     # def update(self, request, *args, **kwargs):
     #     serializer = ProfileUpdateSerializer(data=request.data)

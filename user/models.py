@@ -25,4 +25,4 @@ class Profile(models.Model):
 
     class Meta:
         ordering = ('created_at',)
-        db_table = "profile"
+        db_table = "auth_profile"

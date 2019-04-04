@@ -11,6 +11,8 @@ djangorestframework = "*"
 djangorestframework-jwt = "*"
 django-cors-headers = "*"
 pillow = "*"
+pygments = "*"
+django-filter = "*"
 
 [requires]
 python_version = "3.7"

@@ -6,8 +6,7 @@ class CookieAuthentication(BaseJSONWebTokenAuthentication):
     """自定义JWT认证，从cookie中获取认证信息"""
 
     def get_jwt_value(self, request):
-        # print request.COOKIES
-        return request.COOKIES.get(api_settings.JWT_AUTH_HEADER_PREFIX.upper(), '')
+        return request.COOKIES.get(api_settings.JWT_AUTH_HEADER_PREFIX.upper())
 
     # def authenticate_header(self, request):
     #     """
@@ -16,5 +15,5 @@ class CookieAuthentication(BaseJSONWebTokenAuthentication):
     #     否则返回403.
     #     """
     #     return '{0} realm="{1}"'.format(api_settings.JWT_AUTH_HEADER_PREFIX, self.www_authenticate_realm)
-
+    #
 

@@ -1,8 +1,7 @@
-from rest_framework import permissions
-from rest_framework import generics
+from rest_framework import permissions, generics
 from taki.permissions import IsOwnerOrReadOnly
-from solution.models import Solution
-from solution.serializers import SolutionSerializer
+from solutions.models import Solution
+from solutions.serializers import SolutionSerializer
 
 
 class SolutionList(generics.ListCreateAPIView):

@@ -6,9 +6,8 @@ class Solution(models.Model):
     title = models.CharField(max_length=50, blank=False, default='标题')
     oj = models.CharField(max_length=50, blank=False, default='')
     pid = models.CharField(max_length=50, blank=False, default='')
-    content = models.CharField(max_length=5000, blank=True, default='')
+    content = models.TextField()
     owner = models.ForeignKey('auth.User', related_name='solutions', on_delete=models.CASCADE)
 
     class Meta:
         ordering = ('created',)
-        db_table = "solution"

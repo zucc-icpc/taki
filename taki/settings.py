@@ -41,11 +41,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'article.apps.ArticleConfig',
     'honor.apps.HonorConfig',
-    'solution.apps.SolutionConfig',
+    'solutions.apps.SolutionsConfig',
     'user.apps.UserProfileConfig',
-    'codebase.apps.CodebaseConfig',
-    'code_section.apps.CodeSectionConfig',
-    'code_snippet.apps.CodeSnippetConfig',
+    'templates.apps.TemplatesConfig',
     'corsheaders',
 ]
 
@@ -147,6 +145,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'taki.auth.CookieAuthentication',
     ),
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
 }
 
 CORS_ORIGIN_WHITELIST = (
