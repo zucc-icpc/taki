@@ -15,7 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'is_staff', 'articles', 'type', 'biography', 'avatar', 'name', 'sid')
+        fields = ('id', 'username', 'is_staff', 'articles', 'type', 'biography', 'avatar', 'name', 'sid', 'email')
 
 
 class UserRegisterSerializer(serializers.ModelSerializer):
@@ -32,7 +32,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = (
             'user', 'username', 'created_at', 'updated_at', 'type',
-            'biography', 'avatar', 'name', 'sid'
+            'biography', 'avatar', 'name', 'sid', 'level'
         )
 
 
@@ -40,7 +40,7 @@ class ProfileUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = (
-            'type', 'biography', 'avatar', 'name', 'sid'
+            'type', 'biography', 'avatar', 'name', 'sid', 'level'
         )
 
     def validate_type(self, value):

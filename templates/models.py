@@ -24,6 +24,7 @@ class Template(models.Model):
                            blank=True,
                            validators=[FileExtensionValidator(allowed_extensions=['doc', 'docx'])])
     type = models.CharField(choices=TYPE_CHOICES, default='pdf', max_length=100)
+    intro = models.CharField(max_length=100, blank=True, default='')
 
     class Meta:
         ordering = ('created',)

@@ -7,7 +7,7 @@ class TemplateListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Template
-        fields = ('id', 'title', 'owner', 'created', 'type', 'pdf', 'word')
+        fields = ('id', 'title', 'owner', 'created', 'type', 'pdf', 'word', 'intro')
 
 
 class TemplateDetailSerializer(serializers.ModelSerializer):
@@ -15,5 +15,5 @@ class TemplateDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Template
-        fields = ('id', 'title', 'pdf', 'type', 'owner', 'word')
+        fields = ('id', 'title', 'pdf', 'type', 'owner', 'word', 'intro')
 
