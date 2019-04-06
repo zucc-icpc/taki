@@ -50,6 +50,13 @@ class ProfileList(generics.ListAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
+    def get_queryset(self):
+        queryset = Profile.objects.all()
+        type = self.request.query_params.get('type', None)
+        if type is not None:
+            queryset = queryset.filter(type=type)
+        return queryset
+
 
 class ProfileDetail(generics.RetrieveUpdateAPIView):
     queryset = Profile.objects.all()
@@ -84,3 +91,16 @@ class ProfileDetail(generics.RetrieveUpdateAPIView):
 #                 data=serializer.errors,
 #                 status=status.HTTP_400_BAD_REQUEST
 #             )
+
+
+@api_view(['GET'])
+def verify_user(request):
+    data = {
+        "id": request.user.id,
+        "isLogin": "true"
+    }
+    if request.user.is_anonymous:
+        data = {
+            "isLogin": "false"
+        }
+    return Response(data=data, status=status.HTTP_200_OK)

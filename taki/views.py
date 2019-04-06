@@ -15,6 +15,7 @@ def api_root(request, format=None):
         'profile': reverse('profile-list', request=request, format=format),
         'solutions': reverse('solution-list', request=request, format=format),
         'templates': reverse('template-list', request=request, format=format),
+        'verify-user': reverse('verify-user', request=request, format=format)
         # 'upload': reverse('upload-avatar', request=request, format=format),
         # 'snippets': reverse('snippet-list', request=request, format=format)
     })
@@ -38,3 +39,14 @@ class CookieJSONWebToken(ObtainJSONWebToken):
                            'token'], httponly=True, expires=datetime.now() + api_settings.JWT_EXPIRATION_DELTA)
             return res
         return Response({"error": serializer.errors})
+
+
+class ClearCookieJSONWebToken(ObtainJSONWebToken):
+    """
+    接受post请求生成JWT-Token并设置cookie
+    """
+
+    def post(self, request, *args, **kwargs):
+        res = Response()
+        res.set_cookie(api_settings.JWT_AUTH_HEADER_PREFIX.upper(), httponly=True, expires=datetime.now())
+        return res

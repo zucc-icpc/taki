@@ -6,16 +6,15 @@ from user.models import Profile
 
 class UserSerializer(serializers.ModelSerializer):
     # profile = serializers.PrimaryKeyRelatedField(read_only=True)
-    articles = serializers.PrimaryKeyRelatedField(many=True, queryset=Article.objects.all())
     type = serializers.CharField(source='profile.type')
     biography = serializers.CharField(source='profile.biography')
-    avatar = serializers.CharField(source='profile.avatar')
+    avatar = serializers.ImageField(source='profile.avatar')
     name = serializers.CharField(source='profile.name')
     sid = serializers.CharField(source='profile.sid')
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'is_staff', 'articles', 'type', 'biography', 'avatar', 'name', 'sid', 'email')
+        fields = ('id', 'username', 'is_staff', 'type', 'biography', 'avatar', 'name', 'sid', 'email')
 
 
 class UserRegisterSerializer(serializers.ModelSerializer):

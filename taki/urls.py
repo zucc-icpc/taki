@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token
-from taki.views import CookieJSONWebToken, api_root
+from taki.views import CookieJSONWebToken, api_root, ClearCookieJSONWebToken
 from django.conf.urls.static import static
 from taki import settings
 
@@ -35,6 +35,7 @@ urlpatterns += [
 
 urlpatterns += [
     path('api-token-auth/', CookieJSONWebToken.as_view()),
+    path('clear-token/', ClearCookieJSONWebToken.as_view()),
     path('api-token-verify/',  verify_jwt_token)
 ]
 
