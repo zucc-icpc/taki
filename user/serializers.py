@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from article.models import Article
+# from articles.models import Article
 from user.models import Profile
 
 
@@ -31,7 +31,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = (
             'user', 'username', 'created_at', 'updated_at', 'type',
-            'biography', 'avatar', 'name', 'sid', 'level'
+            'biography', 'avatar', 'name', 'sid', 'level', 'work', 'graduate'
         )
 
 
@@ -39,7 +39,7 @@ class ProfileUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = (
-            'type', 'biography', 'avatar', 'name', 'sid', 'level'
+            'type', 'biography', 'avatar', 'name', 'sid', 'level', 'work', 'graduate'
         )
 
     def validate_type(self, value):

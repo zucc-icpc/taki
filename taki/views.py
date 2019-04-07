@@ -15,6 +15,7 @@ def api_root(request, format=None):
         'profile': reverse('profile-list', request=request, format=format),
         'solutions': reverse('solution-list', request=request, format=format),
         'templates': reverse('template-list', request=request, format=format),
+        'honors': reverse('honor-list', request=request, format=format),
         'verify-user': reverse('verify-user', request=request, format=format)
         # 'upload': reverse('upload-avatar', request=request, format=format),
         # 'snippets': reverse('snippet-list', request=request, format=format)

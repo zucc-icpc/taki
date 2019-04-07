@@ -22,10 +22,11 @@ from taki import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('article.urls')),
+    # path('api/', include('articles.urls')),
     path('api/', include('user.urls')),
     path('api/', include('solutions.urls')),
     path('api/', include('templates.urls')),
+    path('api/', include('honors.urls')),
     path('', api_root)
 ]
 

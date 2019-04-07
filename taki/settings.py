@@ -39,11 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'article.apps.ArticleConfig',
-    'honor.apps.HonorConfig',
     'solutions.apps.SolutionsConfig',
     'user.apps.UserProfileConfig',
     'templates.apps.TemplatesConfig',
+    'honors.apps.HonorsConfig',
     'corsheaders',
 ]
 
