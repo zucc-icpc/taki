@@ -1,3 +1,9 @@
 from django.contrib import admin
+from templates.models import Template
 
-# Register your models here.
+
+class TemplateAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'owner')
+
+
+admin.site.register(Template, TemplateAdmin)

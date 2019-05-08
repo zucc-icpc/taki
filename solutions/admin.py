@@ -1,3 +1,9 @@
 from django.contrib import admin
+from solutions.models import Solution
 
-# Register your models here.
+
+class SolutionAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'owner')
+
+
+admin.site.register(Solution, SolutionAdmin)

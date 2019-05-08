@@ -26,5 +26,8 @@ class Template(models.Model):
     type = models.CharField(choices=TYPE_CHOICES, default='pdf', max_length=100)
     intro = models.CharField(max_length=100, blank=True, default='')
 
+    def __str__(self):  # 在Python3中用 __str__ 代替 __unicode__
+        return self.title
+
     class Meta:
         ordering = ('created',)
