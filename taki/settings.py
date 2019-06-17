@@ -26,7 +26,7 @@ SECRET_KEY = 'muwp=-2c3@ba#(yr_8!bdmaagb^n8)nknaoh&pijwwjm-w&gh('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'templates.apps.TemplatesConfig',
     'honors.apps.HonorsConfig',
     'corsheaders',
+    'django_filters',
+    'easy_thumbnails',
 ]
 
 MIDDLEWARE = [
@@ -113,7 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
@@ -126,9 +128,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static/images/avatars')
-]
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -148,8 +149,8 @@ REST_FRAMEWORK = {
 }
 
 CORS_ORIGIN_WHITELIST = (
-    'localhost:3000',
-    '127.0.0.1:3000'
+    'http://localhost:3000',
+    'http://127.0.0.1:3000'
 )
 
 CORS_ALLOW_CREDENTIALS = True
@@ -159,4 +160,10 @@ JWT_AUTH = {
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
+}
+
+THUMBNAIL_ALIASES = {
+    '': {
+        'avatar': {'size': (256, 256), 'crop': True},
+    },
 }

@@ -1,20 +1,14 @@
 import os
 
 from rest_framework.decorators import api_view
-from rest_framework.parsers import MultiPartParser, FileUploadParser
 from rest_framework.response import Response
 from rest_framework import status, permissions, generics
 from django.contrib.auth.models import User
-from rest_framework.views import APIView
 from user.serializers import UserSerializer, UserRegisterSerializer, ProfileSerializer, ProfileUpdateSerializer, ProfileAvatarSerializer
 from user.models import Profile
 from user.serializers import UserSerializer
 from user.permissions import IsOwnerOrReadOnly
-from taki import settings
-from django.core.files import uploadhandler
-from django.core.files.storage import default_storage
-from user.permissions import CreateOnly
-
+from easy_thumbnails.files import get_thumbnailer
 
 class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
@@ -64,6 +58,11 @@ class ProfileDetail(generics.RetrieveUpdateAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
                           IsOwnerOrReadOnly,)
 
+    # def perform_update(self, serializer):
+    #     instance = self.get_object()
+    #     avatar = instance.avatar
+    #     serializer.save(avatar_thumb=get_thumbnailer(avatar)['avatar'].url)
+
     def get_serializer_class(self, *args, **kwargs):
         if self.request.method in ['PUT', 'PATCH']:
             return ProfileUpdateSerializer
@@ -80,17 +79,6 @@ class ProfileDetail(generics.RetrieveUpdateAPIView):
     #     else:
     #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-# class FileUploadView(APIView):
-#     parser_classes = (MultiPartParser, )
-#
-#     def post(self, request):
-#         serializer = ProfileAvatarSerializer(data=request.data)
-#         if not serializer.is_valid():
-#             return Response(
-#                 data=serializer.errors,
-#                 status=status.HTTP_400_BAD_REQUEST
-#             )
 
 
 @api_view(['GET'])

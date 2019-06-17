@@ -13,6 +13,7 @@ django-cors-headers = "*"
 pillow = "*"
 pygments = "*"
 django-filter = "*"
+easy-thumbnails = "*"
 
 [requires]
 python_version = "3.7"

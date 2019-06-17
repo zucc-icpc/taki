@@ -3,6 +3,8 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from user.storage import OverwriteStorage
+from easy_thumbnails.fields import ThumbnailerImageField
+
 TYPE_CHOICES = sorted((item, item) for item in ('普通用户', '队员', '教练', '退役队员'))
 
 
@@ -13,6 +15,7 @@ class Profile(models.Model):
     type = models.CharField(choices=TYPE_CHOICES, max_length=10, blank=False, default='普通用户')
     biography = models.CharField(max_length=5000, blank=True, default='')
     avatar = models.ImageField(upload_to='avatar', storage=OverwriteStorage(), max_length=100,  default='')
+    # avatar_thumb = ThumbnailerImageField(upload_to='avatar_thumb', storage=OverwriteStorage(), null=True, blank=True)
     name = models.CharField(max_length=10, blank=True, default='')
     sid = models.CharField(max_length=10, blank=True, default='')
     level = models.CharField(max_length=10, blank=True, default='')

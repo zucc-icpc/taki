@@ -1,8 +1,13 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-# from articles.models import Article
 from user.models import Profile
+from easy_thumbnails.templatetags.thumbnail import thumbnail_url
+from easy_thumbnails.files import get_thumbnailer
 
+
+class ThumbnailSerializer(serializers.ImageField):
+    def to_representation(self, instance):
+        return get_thumbnailer(instance)['avatar'].url
 
 class UserSerializer(serializers.ModelSerializer):
     # profile = serializers.PrimaryKeyRelatedField(read_only=True)
@@ -11,10 +16,11 @@ class UserSerializer(serializers.ModelSerializer):
     avatar = serializers.ImageField(source='profile.avatar')
     name = serializers.CharField(source='profile.name')
     sid = serializers.CharField(source='profile.sid')
+    avatar_thumb = ThumbnailSerializer(source='profile.avatar')
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'is_staff', 'type', 'biography', 'avatar', 'name', 'sid', 'email')
+        fields = ('id', 'username', 'is_staff', 'type', 'biography', 'avatar', 'name', 'sid', 'email', 'avatar_thumb')
 
 
 class UserRegisterSerializer(serializers.ModelSerializer):
@@ -26,20 +32,23 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     user = serializers.IntegerField(source='pk', read_only=True)
     username = serializers.CharField(source='user.username')
+    avatar_thumb = ThumbnailSerializer(source='avatar')
 
     class Meta:
         model = Profile
         fields = (
             'user', 'username', 'created_at', 'updated_at', 'type',
-            'biography', 'avatar', 'name', 'sid', 'level', 'work', 'graduate'
+            'biography', 'avatar', 'name', 'sid', 'level', 'work', 'graduate', 'avatar_thumb'
         )
 
 
 class ProfileUpdateSerializer(serializers.ModelSerializer):
+    avatar_thumb = ThumbnailSerializer(source='avatar')
+
     class Meta:
         model = Profile
         fields = (
-            'type', 'biography', 'avatar', 'name', 'sid', 'level', 'work', 'graduate'
+            'type', 'biography', 'avatar', 'name', 'sid', 'level', 'work', 'graduate', 'avatar_thumb'
         )
 
     def validate_type(self, value):
