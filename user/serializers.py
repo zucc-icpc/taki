@@ -38,11 +38,12 @@ class ProfileSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user.username')
     avatar_thumb = ThumbnailSerializer(source='avatar')
     is_staff = serializers.CharField(source='user.is_staff')
+    id = serializers.CharField(source='user.id')
 
     class Meta:
         model = Profile
         fields = (
-            'user', 'username', 'created_at', 'updated_at', 'type', 'is_staff',
+            'id', 'user', 'username', 'created_at', 'updated_at', 'type', 'is_staff',
             'biography', 'avatar', 'name', 'sid', 'level', 'work', 'graduate', 'avatar_thumb'
         )
 

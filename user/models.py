@@ -14,7 +14,7 @@ class Profile(models.Model):
     updated_at = models.DateTimeField(auto_now = True)
     type = models.CharField(choices=TYPE_CHOICES, max_length=10, blank=False, default='普通用户')
     biography = models.CharField(max_length=5000, blank=True, default='')
-    avatar = models.ImageField(upload_to='avatar', storage=OverwriteStorage(), max_length=100,  default='')
+    avatar = models.ImageField(upload_to='avatar', storage=OverwriteStorage(), max_length=100,  default='', blank=True)
     # avatar_thumb = ThumbnailerImageField(upload_to='avatar_thumb', storage=OverwriteStorage(), null=True, blank=True)
     name = models.CharField(max_length=10, blank=True, default='')
     sid = models.CharField(max_length=10, blank=True, default='')
