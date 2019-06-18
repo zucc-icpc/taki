@@ -10,6 +10,7 @@ from user.serializers import UserSerializer
 from user.permissions import IsOwnerOrReadOnly
 from easy_thumbnails.files import get_thumbnailer
 
+
 class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -51,6 +52,22 @@ class ProfileList(generics.ListAPIView):
             queryset = queryset.filter(type=type)
         return queryset
 
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        data = serializer.data
+        host = request.META['HTTP_HOST']
+        for item in data:
+            if item['avatar_thumb'] is not None:
+                item['avatar_thumb'] = 'http://' + host + item['avatar_thumb']
+        return Response(data)
+
 
 class ProfileDetail(generics.RetrieveUpdateAPIView):
     queryset = Profile.objects.all()
@@ -58,27 +75,20 @@ class ProfileDetail(generics.RetrieveUpdateAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
                           IsOwnerOrReadOnly,)
 
-    # def perform_update(self, serializer):
-    #     instance = self.get_object()
-    #     avatar = instance.avatar
-    #     serializer.save(avatar_thumb=get_thumbnailer(avatar)['avatar'].url)
-
     def get_serializer_class(self, *args, **kwargs):
         if self.request.method in ['PUT', 'PATCH']:
             return ProfileUpdateSerializer
         else:
             return ProfileSerializer
 
-    def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
-    # def update(self, request, *args, **kwargs):
-    #     serializer = ProfileUpdateSerializer(data=request.data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(, status=status.HTTP_200_OK)
-    #     else:
-    #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        host = request.META['HTTP_HOST']
+        data = serializer.data
+        if data['avatar_thumb'] is not None:
+            data['avatar_thumb'] = 'http://' + host + data['avatar_thumb']
+        return Response(data)
 
 
 @api_view(['GET'])

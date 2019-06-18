@@ -3,11 +3,15 @@ from django.contrib.auth.models import User
 from user.models import Profile
 from easy_thumbnails.templatetags.thumbnail import thumbnail_url
 from easy_thumbnails.files import get_thumbnailer
+from django.http import HttpRequest
 
 
 class ThumbnailSerializer(serializers.ImageField):
     def to_representation(self, instance):
+        if instance == '':
+            return None
         return get_thumbnailer(instance)['avatar'].url
+
 
 class UserSerializer(serializers.ModelSerializer):
     # profile = serializers.PrimaryKeyRelatedField(read_only=True)
@@ -33,11 +37,12 @@ class ProfileSerializer(serializers.ModelSerializer):
     user = serializers.IntegerField(source='pk', read_only=True)
     username = serializers.CharField(source='user.username')
     avatar_thumb = ThumbnailSerializer(source='avatar')
+    is_staff = serializers.CharField(source='user.is_staff')
 
     class Meta:
         model = Profile
         fields = (
-            'user', 'username', 'created_at', 'updated_at', 'type',
+            'user', 'username', 'created_at', 'updated_at', 'type', 'is_staff',
             'biography', 'avatar', 'name', 'sid', 'level', 'work', 'graduate', 'avatar_thumb'
         )
 
