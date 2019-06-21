@@ -95,7 +95,7 @@ DATABASES = {
         'USER': 'postgres',
         'NAME': 'taki',
         'PASSWORD': 'postgres',
-        'HOST': 'localhost',
+        'HOST': '10.66.28.6',
         'PORT': '5432',
         'CHARSET': 'UTF8',
         # 'TEST': {
@@ -163,7 +163,9 @@ REST_FRAMEWORK = {
 
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
-    'http://127.0.0.1:3000'
+    'http://127.0.0.1:3000',
+    'http://10.66.28.6:8001',
+    'http://acm.zucc.edu.cn:8001',
 )
 
 CORS_ALLOW_CREDENTIALS = True

@@ -1,6 +1,6 @@
 [[source]]
 name = "pypi"
-url = "https://pypi.org/simple"
+url = "http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com"
 verify_ssl = true
 
 [dev-packages]
@@ -15,6 +15,7 @@ pygments = "*"
 django-filter = "*"
 easy-thumbnails = "*"
 psycopg2-binary = "*"
+uwsgi = "*"
 
 [requires]
 python_version = "3.7"
