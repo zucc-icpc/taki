@@ -54,13 +54,9 @@ class ProfileUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = (
-            'type', 'biography', 'avatar', 'name', 'sid', 'level', 'work', 'graduate', 'avatar_thumb'
+            'biography', 'avatar', 'sid', 'level', 'work', 'graduate', 'avatar_thumb'
         )
 
-    def validate_type(self, value):
-        if value not in ['普通用户', '队员', '教练', '退役队员']:
-            raise serializers.ValidationError("用户类型不正确")
-        return value
 
 
 class ProfileAvatarSerializer(serializers.ModelSerializer):

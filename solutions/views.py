@@ -17,11 +17,11 @@ class SolutionFilter(filters.FilterSet):
     title = filters.CharFilter(field_name="title", lookup_expr='contains')
     oj = filters.CharFilter(field_name="oj", lookup_expr='contains')
     pid = filters.CharFilter(field_name="pid", lookup_expr='contains')
-    owner = filters.CharFilter(field_name='owner__username', lookup_expr='contains')
+    name = filters.CharFilter(field_name='owner__profile__name', lookup_expr='contains')
 
     class Meta:
         model = Solution
-        fields = ['title', 'oj', 'pid', 'owner']
+        fields = ['title', 'oj', 'pid', 'name']
 
 
 class SolutionList(generics.ListCreateAPIView):
@@ -30,7 +30,7 @@ class SolutionList(generics.ListCreateAPIView):
     pagination_class = SolutionResultsSetPagination
     filter_backends = (filters.DjangoFilterBackend, OrderingFilter)
     filterset_class = SolutionFilter
-    ordering_fields = ('title', 'oj', 'pid', 'owner', 'created')
+    ordering_fields = ('title', 'oj', 'pid', 'name', 'created')
 
     def get_serializer_class(self):
         if self.request.method in permissions.SAFE_METHODS:

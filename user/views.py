@@ -25,7 +25,7 @@ class UserList(generics.ListCreateAPIView):
     def create(self, request, *args, **kwargs):
         serializer = UserRegisterSerializer(data=request.data)
         if request.data['name'] is None or request.data['name'].strip() == "":
-            return Response({"error": "真实姓名不能为空"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": {"真实姓名": ["不能为空"]}}, status=status.HTTP_400_BAD_REQUEST)
         name = request.data['name'].strip()
         if serializer.is_valid():
             user = User.objects.create_user(
