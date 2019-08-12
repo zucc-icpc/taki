@@ -27,6 +27,7 @@ urlpatterns = [
     path('api/', include('solutions.urls')),
     path('api/', include('templates.urls')),
     path('api/', include('honors.urls')),
+    path('api/', include('reports.urls')),
     path('', api_root)
 ]
 

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'user.apps.UserProfileConfig',
     'templates.apps.TemplatesConfig',
     'honors.apps.HonorsConfig',
+    'reports.apps.ReportsConfig',
     'corsheaders',
     'django_filters',
     'easy_thumbnails',

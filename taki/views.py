@@ -16,6 +16,7 @@ def api_root(request, format=None):
         'solutions': reverse('solution-list', request=request, format=format),
         'templates': reverse('template-list', request=request, format=format),
         'honors': reverse('honor-list', request=request, format=format),
+        'reports': reverse('report-list', request=request, format=format),
         'verify-user': reverse('verify-user', request=request, format=format)
     })
 
