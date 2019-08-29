@@ -2,7 +2,7 @@
 
 It's the back-end of Programming Contest Lab Community project for ZUCC-ICPC-LAB.
 
-See front-end project[here](https://github.com/zucc-icpc/mitsuha)
+See front-end project [here](https://github.com/zucc-icpc/mitsuha)
 
 ## Demo
 [Here](http://47.100.57.37:8000)
@@ -14,7 +14,7 @@ This project uses [pipenv](https://github.com/pypa/pipenv) and Python3.7. Go che
 ### Development environment
 
 ```
-git clone https://github.com/zucc-icpc/taki.git
+$ git clone https://github.com/zucc-icpc/taki.git
 $ cd taki
 Install all dependencies for a project
 $ pipenv install
@@ -32,7 +32,7 @@ You need to modify taki/taki/settings.py, taki/taki_nginx.conf, and taki/taki_uw
 see the [doc](https://uwsgi-docs.readthedocs.io/en/latest/tutorials/Django_and_nginx.html)
 
 ```
-git clone https://github.com/zucc-icpc/taki.git
+$ git clone https://github.com/zucc-icpc/taki.git
 $ cd taki
 Install all dependencies for a project
 $ pipenv install
