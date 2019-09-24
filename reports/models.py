@@ -7,6 +7,5 @@ class Report(models.Model):
     content = models.TextField()
     owner = models.ForeignKey('auth.User', related_name='reports', on_delete=models.CASCADE)
 
-
     class Meta:
         ordering = ('-created',)

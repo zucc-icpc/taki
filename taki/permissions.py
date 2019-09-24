@@ -20,7 +20,8 @@ class IsStaffOrReadOnly(permissions.BasePermission):
     def has_permission(self, request, view):
         if request.method in permissions.SAFE_METHODS:
             return True
-        return request.user.is_staff
+        profile = request.user.profile
+        return request.user.is_staff or profile.type == "教练"
 
 
 class IsCoachOrSelf(permissions.BasePermission):
