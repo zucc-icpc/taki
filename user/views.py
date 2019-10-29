@@ -69,9 +69,9 @@ class ProfileList(generics.ListAPIView):
         serializer = self.get_serializer(queryset, many=True)
         data = serializer.data
         host = request.META['HTTP_HOST']
-        for item in data:
-            if item['avatar_thumb'] is not None:
-                item['avatar_thumb'] = 'http://' + host + item['avatar_thumb']
+        # for item in data:
+        #     if item['avatar_thumb'] is not None:
+        #         item['avatar_thumb'] = 'http://' + host + item['avatar_thumb']
         return Response(data)
 
 
