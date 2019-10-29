@@ -68,7 +68,7 @@ class ProfileList(generics.ListAPIView):
 
         serializer = self.get_serializer(queryset, many=True)
         data = serializer.data
-        host = request.META['HTTP_HOST']
+        # host = request.META['HTTP_HOST']
         # for item in data:
         #     if item['avatar_thumb'] is not None:
         #         item['avatar_thumb'] = 'http://' + host + item['avatar_thumb']
@@ -90,10 +90,10 @@ class ProfileDetail(generics.RetrieveUpdateAPIView):
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
-        host = request.META['HTTP_HOST']
+        # host = request.META['HTTP_HOST']
         data = serializer.data
-        if data['avatar_thumb'] is not None:
-            data['avatar_thumb'] = 'http://' + host + data['avatar_thumb']
+        # if data['avatar_thumb'] is not None:
+        #     data['avatar_thumb'] = 'http://' + host + data['avatar_thumb']
         return Response(data)
 
 
