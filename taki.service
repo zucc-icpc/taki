@@ -1,0 +1,13 @@
+[Unit]
+Description=uWSGI instance to serve taki
+After=network.target
+
+[Service]
+User=root
+Group=www-data
+WorkingDirectory=/home/taki
+Environment="PATH=/root/.local/share/virtualenvs/taki-hreJ8Rsl/bin"
+ExecStart=/root/.local/share/virtualenvs/taki-hreJ8Rsl/bin/uwsgi --ini taki_uwsgi.ini
+
+[Install]
+WantedBy=multi-user.target
